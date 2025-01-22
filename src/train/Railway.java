@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class Railway {
 	private final Element[] elements;
-    private Train[] trains;
+    private Train trains;
 	public Railway(Element[] elements) {
 		if(elements == null)
 			throw new NullPointerException();
