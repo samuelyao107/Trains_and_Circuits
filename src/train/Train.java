@@ -19,8 +19,8 @@ package train;
  */
 public class Train {
 	private final String name;
-	private final Position pos;
-	private Position currentPos;
+	private  Position pos;
+
 
 	public Train(String name, Position p) throws BadPositionForTrainException {
 		if (name == null || p == null)
@@ -45,6 +45,6 @@ public class Train {
 	}
 	
 	public void move(Element elem) {
-		this.currentPos.setCurrentPos(elem);
+		this.pos.setCurrentPos(elem);
 	}
 }
