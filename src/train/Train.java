@@ -20,7 +20,7 @@ package train;
 public class Train {
 	private final String name;
 	private  Position pos;
-	private Section sec;
+	//private Section sec;
 
 
 	public Train(String name, Position p) throws BadPositionForTrainException {
@@ -28,7 +28,7 @@ public class Train {
 			throw new NullPointerException();
 
 		// A train should be first be in a station
-		if (!(p.getPos() instanceof Station))
+		if (!(p.getPosElem() instanceof Station))
 			throw new BadPositionForTrainException(name);
 
 		this.name = name;
@@ -45,9 +45,24 @@ public class Train {
 		return result.toString();
 	}
 	
-	public void move(Element elem) {
-		sec.leave(this.pos.getPos());
-		this.pos.setCurrentPos(elem);
-		sec.enter(elem);
+	
+	
+	public Position getPos() {
+		return pos;
 	}
+	
+	public void enter(Element e) {
+		System.out.println("le train entre en "+ e.toString());
+	}
+	
+	public void leave(Element e) {
+		System.out.println("le train quitte "+ e.toString());
+	}
+	
+	public void move(Element elem) {
+		leave(this.pos.getPosElem());
+		this.pos.setCurrentPos(elem);
+		enter(elem);
+	}
+	
 }

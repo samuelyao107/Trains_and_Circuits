@@ -12,9 +12,9 @@ import java.util.Objects;
  * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  */
-public class Railway {
+public class Railway implements Runnable {
 	private final Element[] elements;
-    private Train trains;
+    private Train train;
 	public Railway(Element[] elements) {
 		if(elements == null)
 			throw new NullPointerException();
@@ -50,5 +50,20 @@ public class Railway {
 		}
 		
 		return null;
+	}
+	
+	public void addTrain(Train train) {
+		this.train = train;
+	}
+
+	@Override
+	public void run() {
+		boolean cond = true;
+		while(cond) {
+			Element elem = getNext(train.getPos().getPosElem());
+			train.move(elem);
+			if(Objects.equals(train.getPos().getPosElem(), null))
+				cond = false;
+		}
 	}
 }

@@ -11,13 +11,5 @@ public class Section extends Element {
 	public Section(String name) {
 		super(name);
 	}
-	
-	public void enter(Element e) {
-		System.out.println("le train entre en"+ e.toString());
-	}
-	
-	public void leave(Element e) {
-		System.out.println("le train quitte"+ e.toString());
-	}
-	
+
 }
