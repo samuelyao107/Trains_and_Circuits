@@ -1,6 +1,10 @@
 package train;
 
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Objects;
+
 /**
  * Représentation d'un circuit constitué d'éléments de voie ferrée : gare ou
  * section de voie
@@ -10,7 +14,7 @@ package train;
  */
 public class Railway {
 	private final Element[] elements;
-
+    private Train[] trains;
 	public Railway(Element[] elements) {
 		if(elements == null)
 			throw new NullPointerException();
@@ -32,5 +36,19 @@ public class Railway {
 			result.append(e);
 		}
 		return result.toString();
+	}
+	
+	public Element getNext(Element elem) {
+		Iterator<Element> it = Arrays.asList(elements).iterator();
+		while(it.hasNext()) {
+			Element current = it.next();
+			if(Objects.equals(current, elem)) {
+				if(it.hasNext()) {
+					return it.next();
+				}
+			}
+		}
+		
+		return null;
 	}
 }
