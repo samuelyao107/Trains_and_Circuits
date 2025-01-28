@@ -38,17 +38,5 @@ public class Railway {
 		return result.toString();
 	}
 	
-	public Element getNext(Element elem) {
-		Iterator<Element> it = Arrays.asList(elements).iterator();
-		while(it.hasNext()) {
-			Element current = it.next();
-			if(Objects.equals(current, elem)) {
-				if(it.hasNext()) {
-					return it.next();
-				}
-			}
-		}
-		
-		return null;
-	}
+	
 }
