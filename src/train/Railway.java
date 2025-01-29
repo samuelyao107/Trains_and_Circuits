@@ -12,9 +12,8 @@ import java.util.Objects;
  * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  */
-public class Railway implements Runnable {
+public class Railway {
 	private final Element[] elements;
-    private Train train;
 	public Railway(Element[] elements) {
 		if(elements == null)
 			throw new NullPointerException();
@@ -52,19 +51,6 @@ public class Railway implements Runnable {
 		return null;
 	}
 	
-	public void addTrain(Train train) {
-		this.train = train;
-	}
 
-	@Override
-	public void run() {
-		boolean cond = true;
-		do {
-			Element elem = getNext(train.getPos().getPosElem());
-			train.move(elem);
-			if( getNext(elem) instanceof Station )
-				cond = false;
-		} while(cond);
-		train.move(getNext(train.getPos().getPosElem()));
-	}
+	
 }

@@ -17,13 +17,14 @@ package train;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  * @version 0.3
  */
-public class Train {
+public class Train extends Thread{
 	private final String name;
 	private  Position pos;
+	private final Railway railway;
 	
 
 
-	public Train(String name, Position p) throws BadPositionForTrainException {
+	public Train(String name, Position p, Railway railway) throws BadPositionForTrainException {
 		if (name == null || p == null)
 			throw new NullPointerException();
 
@@ -33,6 +34,7 @@ public class Train {
 
 		this.name = name;
 		this.pos = p.clone();
+		this.railway = railway;
 	}
 
 	@Override
@@ -64,5 +66,17 @@ public class Train {
 		this.pos.setCurrentPos(elem);
 		enter(elem);
 	}
+	@Override
+	public void run() {
+		boolean cond = true;
+		do {
+			Element elem = railway.getNext(getPos().getPosElem());
+			move(elem);
+			if( railway.getNext(elem) instanceof Station )
+				cond = false;
+		} while(cond);
+		move(railway.getNext(getPos().getPosElem()));
+	}
+	
 	
 }
