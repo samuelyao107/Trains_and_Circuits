@@ -20,7 +20,7 @@ package train;
 public class Train {
 	private final String name;
 	private  Position pos;
-	//private Section sec;
+	
 
 
 	public Train(String name, Position p) throws BadPositionForTrainException {
@@ -52,11 +52,11 @@ public class Train {
 	}
 	
 	public void enter(Element e) {
-		System.out.println("le train entre en "+ e.toString());
+		System.out.println( e.toString());
 	}
 	
 	public void leave(Element e) {
-		System.out.println("le train quitte "+ e.toString());
+		System.out.print("le train sort de "+ e.toString() + " et entre en ");
 	}
 	
 	public void move(Element elem) {

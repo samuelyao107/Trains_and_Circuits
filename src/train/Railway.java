@@ -59,11 +59,12 @@ public class Railway implements Runnable {
 	@Override
 	public void run() {
 		boolean cond = true;
-		while(cond) {
+		do {
 			Element elem = getNext(train.getPos().getPosElem());
 			train.move(elem);
-			if(Objects.equals(train.getPos().getPosElem(), null))
+			if( getNext(elem) instanceof Station )
 				cond = false;
-		}
+		} while(cond);
+		train.move(getNext(train.getPos().getPosElem()));
 	}
 }
