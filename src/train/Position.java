@@ -20,7 +20,7 @@ package train;
  * @version 0.3
  */
 public class Position implements Cloneable {
-	private final Direction direction;
+	private  Direction direction;
 	private  Element pos;
 	
 
@@ -30,6 +30,12 @@ public class Position implements Cloneable {
 
 		this.pos = elt;
 		this.direction = d;
+	}
+	
+	/** La fonction updatePosition permet de modifier d'obtenir la position actuelle pour pouvoir conserver la position initiale du train */
+	public void updatePosition(Element elt, Direction direction) {
+		this.pos = elt;
+		this.direction = direction;
 	}
 
 	@Override
@@ -45,8 +51,11 @@ public class Position implements Cloneable {
 	public Element getPos() {
 		return pos;
 	}
-	public void setCurrentPos(Element elem) {
-		this.pos = elem;
+	
+	
+	/**la fonction getDirection() est un getter pour avoir accès à la direction de circulation du train */
+	public Direction getDirection() {
+		return direction;
 	}
 
 	@Override

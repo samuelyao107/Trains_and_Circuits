@@ -35,4 +35,11 @@ public abstract class Element {
 	public String toString() {
 		return this.name;
 	}
+
+	public abstract void leave(Train train);
+
+	public abstract void enter(Train train) throws Exception;
+	
+
+	
 }

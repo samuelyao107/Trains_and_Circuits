@@ -8,16 +8,25 @@ package train;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  */
 public class Section extends Element {
+	private Train train;
 	public Section(String name) {
 		super(name);
 	}
 	
-	public void enter(Element e) {
-		System.out.println("le train entre en"+ e.toString());
+
+	public synchronized void enter(Train train) {
+		this.train= train;
+		System.out.println("le train entre dans la section "+ this.toString());
+		
 	}
-	
-	public void leave(Element e) {
-		System.out.println("le train quitte"+ e.toString());
+
+
+	public synchronized void leave(Train train) {
+		if(this.train==train) {
+			this.train= null;
+		}
+		System.out.println("le train sort de la section "+ this.toString());
+		
 	}
 	
 }

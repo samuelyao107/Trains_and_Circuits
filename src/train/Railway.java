@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class Railway {
 	private final Element[] elements;
-    private Train trains;
+    
 	public Railway(Element[] elements) {
 		if(elements == null)
 			throw new NullPointerException();
@@ -38,5 +38,18 @@ public class Railway {
 		return result.toString();
 	}
 	
-	
+	public Element getNext(Position pos) {
+		
+		Element current = pos.getPos();
+        Direction direction = pos.getDirection();
+
+        for (int i = 0; i < elements.length; i++) {
+            if (elements[i] == current) {
+                if (direction == Direction.LR && i + 1 < elements.length) return elements[i + 1];
+                if (direction == Direction.RL && i - 1 >= 0) return elements[i - 1];
+            }
+        }
+        return null;
+		
+	}
 }

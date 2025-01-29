@@ -17,14 +17,15 @@ package train;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  * @version 0.3
  */
-public class Train {
+public class Train implements Runnable {
 	private final String name;
 	private  Position pos;
+	private final Railway railway;
 	//private Section sec;
 
 
-	public Train(String name, Position p) throws BadPositionForTrainException {
-		if (name == null || p == null)
+	public Train(String name, Position p, Railway railway) throws BadPositionForTrainException {
+		if (name == null || p == null || railway== null)
 			throw new NullPointerException();
 
 		// A train should be first be in a station
@@ -33,6 +34,7 @@ public class Train {
 
 		this.name = name;
 		this.pos = p.clone();
+		this.railway= railway;
 	}
 
 	@Override
@@ -45,7 +47,32 @@ public class Train {
 		return result.toString();
 	}
 	
-	public void move() {
-		//
+	public void move() throws Exception {
+		Element currentElement = pos.getPos();
+		Element nextElement = railway.getNext(pos);
+		if (nextElement != null) {
+			 currentElement.leave(this);
+			 nextElement.enter(this);
+			 pos.updatePosition(nextElement, pos.getDirection());
+			 	
+		}else {}
+		
+		
+		
+	}
+
+	@Override
+	public void run() {
+		while(true) {
+			try {
+				move();
+				Thread.sleep(2000);
+			}catch(Exception e) {
+				System.out.println(name +"rencontre une erreur dans son déplacement:" + e.getMessage());
+				break;
+			}
+			
+		}
+		
 	}
 }
