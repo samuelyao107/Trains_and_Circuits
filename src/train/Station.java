@@ -22,13 +22,14 @@ public class Station extends Element {
 
 	@Override
 	/** Un train peut entrer dans une station tant qu'il y'a un quai disponible */
-	public synchronized void enter(Train train) throws Exception {
+	public synchronized void enter(Train train) throws InterruptedException {
 		
-		if(occupied>=size) {
-			throw new Exception("Station is full.");	
+		while(occupied>=size) {
+			System.out.println("le train "+ train.getName()+" ne peut entrer dans la gare "+ this.toString()+" car tous les quais sont occupés");
+			wait();
 		}
 		occupied ++;
-		System.out.println("le train entre dans la gare "+ this.toString());
+		System.out.println("le train "+train.getName()+ " entre dans la gare "+ this.toString());
 		
 	}
 
@@ -36,7 +37,8 @@ public class Station extends Element {
 	/** Un train peut quitter une station à tout moment*/
 	public synchronized void leave(Train train) {
 		if (occupied> 0) {
-			System.out.println("le train sort dans la gare "+ this.toString());
+			System.out.println("le train "+  train.getName()+" sort dans la gare "+ this.toString());
+			notifyAll();
 		}
 		
 		

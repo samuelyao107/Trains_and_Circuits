@@ -13,10 +13,15 @@ public class Section extends Element {
 		super(name);
 	}
 	
-
-	public synchronized void enter(Train train) {
+/** La méthode enter() doit pouvoir vérifier qu'un seul train ne peut rentrer dans la section*/
+	public synchronized void enter(Train train) throws InterruptedException {
+		while(this.train != null) {
+			System.out.println("le train "+ train.getName()+" ne peut entrer dans la section "+ this.toString()+" car elle est occupée par le train "+ this.train.getName());
+			wait();
+		}
+		
 		this.train= train;
-		System.out.println("le train entre dans la section "+ this.toString());
+		System.out.println("le train "+train.getName()+" entre dans la section "+ this.toString());
 		
 	}
 
@@ -24,8 +29,10 @@ public class Section extends Element {
 	public synchronized void leave(Train train) {
 		if(this.train==train) {
 			this.train= null;
+			System.out.println("le train "+train.getName()+" sort de la section "+ this.toString());
+			notifyAll();
 		}
-		System.out.println("le train sort de la section "+ this.toString());
+		
 		
 	}
 	

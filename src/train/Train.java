@@ -36,7 +36,12 @@ public class Train implements Runnable {
 		this.pos = p.clone();
 		this.railway= railway;
 	}
-
+    
+	
+	public String getName() {
+		return this.name;
+		
+	}
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder("Train[");
@@ -51,10 +56,13 @@ public class Train implements Runnable {
 		Element currentElement = pos.getPos();
 		Element nextElement = railway.getNext(pos);
 		if (nextElement != null) {
-			 currentElement.leave(this);
-			 nextElement.enter(this);
-			 pos.updatePosition(nextElement, pos.getDirection());
-			 	
+			synchronized(nextElement) {
+				currentElement.leave(this);
+				nextElement.enter(this);
+				pos.updatePosition(nextElement, pos.getDirection());
+				 	
+			}
+			 
 		}else {}
 		
 		
