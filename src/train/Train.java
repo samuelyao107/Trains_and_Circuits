@@ -42,6 +42,10 @@ public class Train implements Runnable {
 		return this.name;
 		
 	}
+	
+	public Position getPosition() {
+		return this.pos;
+	}
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder("Train[");
@@ -57,6 +61,11 @@ public class Train implements Runnable {
 		Element nextElement = railway.getNext(pos);
 		if (nextElement != null) {
 			synchronized(nextElement) {
+				// Vérifier si un train en sens inverse attend dans la section
+                while (nextElement instanceof Section && ((Section) nextElement).OppositeMove(pos.getDirection())) {
+                    System.out.println("Le train " + name + " attend car la section " + nextElement + " est occupée par un train en sens inverse.");
+                    nextElement.wait(); // Attendre que la section soit libérée
+                }
 				currentElement.leave(this);
 				nextElement.enter(this);
 				pos.updatePosition(nextElement, pos.getDirection());
