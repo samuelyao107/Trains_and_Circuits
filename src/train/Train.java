@@ -21,7 +21,8 @@ public class Train implements Runnable {
 	private final String name;
 	private  Position pos;
 	private final Railway railway;
-	//private Section sec;
+	private boolean isArrived = false;
+	
 
 
 	public Train(String name, Position p, Railway railway) throws BadPositionForTrainException {
@@ -57,39 +58,37 @@ public class Train implements Runnable {
 	}
 	
 	public void move() throws Exception {
+		if (isArrived) return;
 		Element currentElement = pos.getPos();
 		Element nextElement = railway.getNext(pos);
 		if (nextElement != null) {
 			synchronized(nextElement) {
-				// Vérifier si un train en sens inverse attend dans la section
-                while (nextElement instanceof Section && ((Section) nextElement).OppositeMove(pos.getDirection())) {
-                    System.out.println("Le train " + name + " attend car la section " + nextElement + " est occupée par un train en sens inverse.");
-                    nextElement.wait(); // Attendre que la section soit libérée
-                }
+				
 				currentElement.leave(this);
 				nextElement.enter(this);
 				pos.updatePosition(nextElement, pos.getDirection());
 				 	
 			}
 			 
-		}else {}
-		
-		
+		}else {
+			System.out.println("Le train " + name + " est arrivé à destination et libère la ligne.");
+	        railway.releaseEntry(pos.getDirection()); // le train libère la ligne à l’arrivée
+	        isArrived = true;
+		}
 		
 	}
 
 	@Override
 	public void run() {
-		while(true) {
+		
 			try {
+				railway.askEntry(pos.getDirection());//lorsqu'un train veut circuler il demande d'abord à verrouiller la railway 
+				while(!isArrived) {
 				move();
-				Thread.sleep(2000);
+				Thread.sleep(2000);}
 			}catch(Exception e) {
 				System.out.println(name +"rencontre une erreur dans son déplacement:" + e.getMessage());
-				break;
+				
 			}
-			
-		}
-		
 	}
 }

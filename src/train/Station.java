@@ -38,6 +38,7 @@ public class Station extends Element {
 	public synchronized void leave(Train train) {
 		if (occupied> 0) {
 			System.out.println("le train "+  train.getName()+" sort dans la gare "+ this.toString());
+			occupied --;
 			notifyAll();
 		}
 		

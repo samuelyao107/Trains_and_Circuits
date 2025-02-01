@@ -19,7 +19,9 @@ public class Main {
 			Train t1 = new Train("1", p, r);
 			Train t2 = new Train("2", p, r);
 			Train t3 = new Train("3", p2,r);
-			//System.out.println(t1);
+			System.out.println(t1);
+			System.out.println(t2);
+			System.out.println(t3);
 			
 			//Création des threads à partir des trains
 			 Thread trainThread1 = new Thread(t1);

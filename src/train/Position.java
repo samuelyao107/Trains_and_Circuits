@@ -32,7 +32,8 @@ public class Position implements Cloneable {
 		this.direction = d;
 	}
 	
-	/** La fonction updatePosition permet de modifier d'obtenir la position actuelle pour pouvoir conserver la position initiale du train */
+	/** La fonction updatePosition permet de modifier d'obtenir la position 
+	 * actuelle pour pouvoir conserver la position initiale du train */
 	public void updatePosition(Element elt, Direction direction) {
 		this.pos = elt;
 		this.direction = direction;

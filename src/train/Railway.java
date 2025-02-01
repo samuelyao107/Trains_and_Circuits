@@ -14,6 +14,10 @@ import java.util.Objects;
  */
 public class Railway {
 	private final Element[] elements;
+	private boolean isDirectionOccupiedLR = false;
+    private boolean isDirectionOccupiedRL = false;
+    private int activeTrainsLR = 0; // Nombre de trains circulant de gauche à droite
+    private int activeTrainsRL = 0; // Nombre de trains circulant de droite à gauche
     
 	public Railway(Element[] elements) {
 		if(elements == null)
@@ -52,4 +56,45 @@ public class Railway {
         return null;
 		
 	}
+	/** askEntry() bloque un train tant qu’un autre circule dans le sens opposé */
+	 public synchronized void askEntry(Direction dir) throws InterruptedException {
+	        // Attendre tant qu’un train circule déjà dans l’autre sens
+	        while ((dir == Direction.LR && (isDirectionOccupiedRL || activeTrainsRL>0)) ||
+	               (dir == Direction.RL && (isDirectionOccupiedLR||activeTrainsLR>0))) {
+	        	
+	            wait();
+	        }
+	        // Bloquer la direction pour empêcher d’autres trains de démarrer en sens inverse
+	        if (dir == Direction.LR) {
+	            isDirectionOccupiedLR = true;
+	            activeTrainsLR++;
+	        } else {
+	            isDirectionOccupiedRL = true;
+	            activeTrainsRL++;
+	            
+	        }
+	  }
+	 
+	 
+	 /** releaseEntry() bloque un train tant qu’un autre circule dans le sens opposé */
+	 public synchronized void releaseEntry(Direction direction) {
+		    if (direction == Direction.LR) {
+		        activeTrainsLR--;
+		        if (activeTrainsLR == 0) { 
+		        //  Si il n'y a plus de trains sur cette ligne circulant dans la direction LR, libérer la ligne
+		            isDirectionOccupiedLR = false;
+		            notifyAll(); //  Réveiller les trains RL en attente
+		        }
+		    } else {
+		        activeTrainsRL--;
+		        if (activeTrainsRL == 0) { 
+		        	//  Si il n'y a plus de trains sur cette ligne circulant dans la direction RL, libérer la ligne
+		            isDirectionOccupiedRL = false;
+		            notifyAll(); //  Réveiller les trains LR en attente
+		        }
+		    }
+		}
+
+	 
+	 
 }
