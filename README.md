@@ -10,7 +10,7 @@ Ce projet est une **simulation de trains circulant sur une ligne ferroviaire**, 
  **Gestion du trafic par direction** : tous les trains d’un même sens doivent terminer avant que la ligne ne change de direction.  
 
 
-<span style="color: red;">Dans le rendu pdf, nous expliquons en détail l'objectif des classes utilisées, l'évolution du diagramme de classes, ainsi que l'interprétation des méthodes ajoutées.</span>  
+<span style="color: red;"> Pour une meilleure clarté, dans un rendu pdf (SORO-YAO.pdf), nous expliquons en détail l'objectif des classes utilisées, l'évolution du diagramme de classes, ainsi que l'interprétation des méthodes ajoutées.</span>  
 
 **Le projet est structuré de la manière suivante:**
 
