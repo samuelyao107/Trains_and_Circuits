@@ -1,6 +1,12 @@
 # Trains_et_Circuits
 
-Ce projet est une **simulation de trains circulant sur une ligne ferroviaire**, en utilisant la programmation concurrente en Java . L'objectif est d'éviter les **collisions**, les **interblocages** (deadlocks) et de garantir une **gestion fluide du trafic**.
+Ce projet est une **simulation de trains circulant sur une ligne ferroviaire**, en utilisant la programmation concurrente en Java . L'objectif est d'éviter les **collisions**, les **interblocages** (deadlocks) et de garantir une **gestion fluide du trafic**. Ce README explique brièvement le projet et comment l'exécuter. 
+
+Ce `README.md` fournit une vue d’ensemble du projet ainsi que les instructions pour l’exécuter. Toutefois, pour une meilleure compréhension, nous avons rédigé un document détaillé (**SORO-YAO.pdf**) où nous expliquons :  
+- L’**objectif des classes utilisées**  
+- L’**évolution du diagramme de classes** avec l’explication des méthodes ajoutées  
+- Les **réponses aux questions du TP** afin de justifier nos choix d’implémentation
+
 
 ### Fonctionnalités du Projet
 
@@ -10,7 +16,7 @@ Ce projet est une **simulation de trains circulant sur une ligne ferroviaire**, 
  **Gestion du trafic par direction** : tous les trains d’un même sens doivent terminer avant que la ligne ne change de direction.  
 
 
-<span style="color: red;"> Pour une meilleure clarté, dans un rendu pdf (SORO-YAO.pdf), nous expliquons en détail l'objectif des classes utilisées, l'évolution du diagramme de classes, ainsi que l'interprétation des méthodes ajoutées.</span>  
+
 
 **Le projet est structuré de la manière suivante:**
 
