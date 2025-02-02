@@ -42,6 +42,7 @@ public class Railway {
 		return result.toString();
 	}
 	
+	/** la méthode getNext() permet de récupérer l'élément suivant à parcourir pour un train en fonction de sa position courante et de sa direction de circulation*/
 	public Element getNext(Position pos) {
 		
 		Element current = pos.getPos();

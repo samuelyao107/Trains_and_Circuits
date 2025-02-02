@@ -56,7 +56,7 @@ public class Train implements Runnable {
 		result.append(this.pos);
 		return result.toString();
 	}
-	
+	/** La classe move() permet de simuler le déplacement du train section par section jusqu'à la fin de la ligne de train */
 	public void move() throws Exception {
 		if (isArrived) return;
 		Element currentElement = pos.getPos();
